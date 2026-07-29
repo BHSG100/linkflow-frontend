@@ -29,10 +29,15 @@ async function request<T>(
     headers['Authorization'] = `Bearer ${token}`
   }
 
-  const res = await fetch(`${BASE_URL}${endpoint}`, {
-    ...options,
-    headers,
-  })
+  let res: Response
+  try {
+    res = await fetch(`${BASE_URL}${endpoint}`, {
+      ...options,
+      headers,
+    })
+  } catch {
+    throw new Error('Erro de conexão. Verifique sua internet.')
+  }
 
   if (!res.ok) {
     const error: ApiError = await res.json().catch(() => ({
