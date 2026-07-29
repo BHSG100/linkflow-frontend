@@ -21,12 +21,13 @@ export default function RegisterForm({ onSuccess }: RegisterFormProps) {
     if (!username || username.length < 3)
       e.username = 'Username deve ter pelo menos 3 caracteres'
     if (!email) e.email = 'Email é obrigatório'
-    if (!password || password.length < 8)
+    if (!password || password.length < 8) {
       e.password = 'Senha deve ter pelo menos 8 caracteres'
-    if (!/[0-9]/.test(password))
+    } else if (!/[0-9]/.test(password)) {
       e.password = 'Senha deve conter pelo menos um número'
-    if (!/[^a-zA-Z0-9]/.test(password))
+    } else if (!/[^a-zA-Z0-9]/.test(password)) {
       e.password = 'Senha deve conter pelo menos um caractere especial'
+    }
     if (password !== confirmPassword)
       e.confirmPassword = 'Senhas não conferem'
     setErrors(e)

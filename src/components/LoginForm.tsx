@@ -16,7 +16,11 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
 
   function validate() {
     const e: Record<string, string> = {}
-    if (!email) e.email = 'Email é obrigatório'
+    if (!email) {
+      e.email = 'Email é obrigatório'
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      e.email = 'Email inválido'
+    }
     if (!password) e.password = 'Senha é obrigatória'
     setErrors(e)
     return Object.keys(e).length === 0

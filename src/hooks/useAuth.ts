@@ -19,7 +19,7 @@ export default function useAuth() {
     const stored = localStorage.getItem('linkflow_user')
     return {
       token,
-      user: stored ? JSON.parse(stored) : null,
+      user: stored ? (() => { try { return JSON.parse(stored) } catch { return null } })() : null,
       loading: false,
     }
   })
